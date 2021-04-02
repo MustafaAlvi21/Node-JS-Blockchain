@@ -1,0 +1,61 @@
+<body id="page-top">
+    <div id="wrapper">
+  
+      <%- include('./partials/sidebar.ejs') %>
+  
+        <div class="d-flex flex-column" id="content-wrapper">
+          <div id="content">
+  
+            <%- include('./partials/nav.ejs') %>
+  
+              <div class="container-fluid">
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                  <h3 class="text-dark mb-0">NIC Registration Form</h3>
+                </div>
+              </div>
+          </div>
+  
+  
+  
+          <div class="row px-4 my-5">
+            <div class="col-6 m-auto">
+              <% if (typeof msg !='undefined' && msg==true) { %>
+                <div class="alert alert-success" id="successMsg" role="alert">
+                  Registered successfully...
+                </div>
+                <% } %>
+  
+                  <form action="/register-my-nic" method="POST">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Fullname</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="name" aria-describedby="emailHelp" required autofocus placeholder="Enter fullname e.g. Muhammad Ali">
+                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Date of Birth</label>
+                      <input type="date" class="form-control" id="exampleInputPassword1" name="date" required autofocus placeholder="Enter sender name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">NIC Number</label>
+                      <input type="number" class="form-control" id="exampleInputPassword1" name="nic" required autofocus placeholder="xxxxxxxxxxxx">
+                    </div>
+                     
+                    <!-- <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div> -->
+                    <button type="submit" class="btn btn-primary">Register NIC</button>
+                  </form>
+            </div>
+          </div>
+  
+  
+  </body>
+  
+  
+  
+  <script>
+    setTimeout(() => {
+      document.getElementById('successMsg').style.display = "none"
+    }, 3000);
+  </script>

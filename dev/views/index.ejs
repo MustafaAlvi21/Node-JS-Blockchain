@@ -1,0 +1,248 @@
+<body id="page-top">
+    <div id="wrapper">
+
+        <%- include('./partials/sidebar.ejs') %>
+    
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+
+            <%- include('./partials/nav.ejs') %>        
+
+            <!-- <div class="row">
+                <div class="col">
+                    <img src="../img/1225187.jpg" alt="img" width="100%" height="300px">
+                </div>
+            </div> -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-warning py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>My Node address</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span><%= blockchain.nodeAddress %></span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-primary py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>No. of Blocks in Chain</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span><%= blockchain.chain.length %></span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-success py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>No. of Transactions in Mempool</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span><%= blockchain.memPool.length %></span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-info py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>No. of Nodes in Network</span></div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><%= blockchain.networkNodes.length %></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+            </div>
+            <% if (typeof msg !='undefined' && msg==true) { %>
+                <div class="alert alert-success w-50 mx-auto" id="successMsg" role="alert">
+                    Transaction successful...
+                </div>
+              <% } %>
+  
+        <div class="row my-3">
+            <div class="w-100" style="display: flex; justify-content: flex-end;">
+                <div class="mx-2" style="display: inline;">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Register Node </button>
+                </div>
+                <div class="mr-5" style="display: inline;">
+                    <a href="/consensus" class="btn btn-primary"> Update My chain </a>
+                </div>
+            </div>
+        </div>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 font-weight-bold">Latest Blocks </p>
+            </div>
+            <div class="card-body  mx-0">
+                <div class="table-responsive table mt-2 bg-white p-3" style="border-radius: 8px;" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table my-0  mx-0" id="dataTable">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Height</th>
+                                <th>Miner</th>
+                                <th>Reward</th>
+                            </tr>
+                        </thead>
+                        <tbody>  
+                            <% if (blockchain.chain.length >= 0) {
+                                chainLen = blockchain.chain.length - 1
+                                k = 0 
+                                for(i = chainLen; i >=0; i--) {
+                                if( k < 5 ) { %>
+                                    <tr class="text-center">
+                                        <td>
+                                            <!-- <div class="d-none d-sm-flex mr-2 ">
+                                                <span class="btn btn-icon btn-soft-secondary mx-auto" style="background-color: rgba(119,131,143,.1);;">
+                                                    <span class="btn-icon__inner text-dark">Bk</span>
+                                                </span>
+                                            </div> -->
+                                            <%= blockchain.chain[i].height %> 
+                                        </td>
+                                        <% if(blockchain.chain[i].height == 0){ %>
+                                            <td>
+                                                <%= blockchain.chain[i].hash %>              
+                                            </td>
+                                            <td>
+                                                <%= blockchain.chain[i].previousHash %>                 
+                                            </td>
+                                        <% } else { %>
+                                            <td>
+                                                <%= blockchain.chain[i].hash %> 
+                                            </td>
+                                            <td>
+                                                <%= blockchain.chain[i].previousHash %> 
+                                            </td>
+                                        <% } %>
+                                    </tr> 
+                            <% } k=k+1 }  }  %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 font-weight-bold">Latest Transactions</p>
+                </div>
+                <div class="card-body  mx-0">
+                    <div class="table-responsive table mt-2 bg-white p-3" style="border-radius: 8px;" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                        <table class="table my-0  mx-0" id="dataTable">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Transaction Hash</th>
+                                    <th>
+                                        NIC 
+                                    </th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>  
+                                <% if (blockchain.chain.length >= 0) {
+                                    chainLen = blockchain.chain.length - 1
+                                    k = 0 
+                                    for(i = chainLen; i >=0; i--) {
+                                    for(j = 0; j < blockchain.chain[i].transactions.length; j++) { 
+                                    if( k < 5 ) { %>
+                                        <tr class="text-center">
+                                            <td class="tHash">
+                                                <!-- <div class="d-none d-sm-flex mr-2 "> -->
+                                                    <!-- <span class="btn btn-icon btn-soft-secondary mx-auto" style="background-color: rgba(119,131,143,.1);"> -->
+                                                        <!-- <span class="btn-icon__inner text-dark">Tx</span> -->
+                                                    <!-- </span> -->
+                                                    <%= blockchain.chain[i].transactions[j].txHash %> 
+                                                <!-- </div> -->
+                                            </td>
+                                            <td>
+                                                <%= blockchain.chain[i].transactions[j].msg %>
+                                            </td>
+                                            <td>
+                                                <%= blockchain.chain[i].transactions[j].timestamp %>
+                                            </td>
+                                        </tr>
+                                        
+                                <% } 
+                                    k=k+1 
+                                        }  }  } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+    </div>          
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <form action="/register-node" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Register New Node</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="newNodeUrl" required placeholder="Enter node url">
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Add Node</button> -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Node</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+
+    <script>
+        tds = document.querySelectorAll("td");
+        for (let i = 0; i < tds.length; i++) {
+            if (tds[i].innerText.length > 25 ){
+                text = tds[i].innerText.substring(0,15)
+                tds[i].innerText = text + "..."
+            }   
+        }
+        tds = document.querySelectorAll(".tHash");
+        for (let i = 0; i < tds.length; i++) {
+                text = tds[i].innerText.substring(0,15)
+                tds[i].innerText = text + "..."
+        }
+    </script>
+</body>

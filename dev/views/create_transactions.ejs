@@ -1,0 +1,63 @@
+<body id="page-top">
+  <div id="wrapper">
+
+    <%- include('./partials/sidebar.ejs') %>
+
+      <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+
+          <%- include('./partials/nav.ejs') %>
+
+            <div class="container-fluid">
+              <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-dark mb-0">Crate Transaction Form</h3>
+              </div>
+            </div>
+        </div>
+
+
+
+        <div class="row px-4 my-5">
+          <div class="col-6 m-auto">
+            <% if (typeof msg !='undefined' && msg==true) { %>
+              <div class="alert alert-success" id="successMsg" role="alert">
+                Transaction successful...
+              </div>
+              <% } %>
+
+                <form action="/txAndBroadcast" method="POST">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Amount</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" name="amount"
+                      aria-describedby="emailHelp" required placeholder="Enter amount to send">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Sender</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="sender" required
+                      placeholder="Enter sender name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Receiver</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="receiver" required
+                      placeholder="Enter receiver name">
+                  </div>
+                  <!-- <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div> -->
+                  <button type="submit" class="btn btn-primary">Transfer Amount</button>
+                </form>
+          </div>
+        </div>
+
+
+</body>
+
+
+
+<script>
+  setTimeout(() => {
+    document.getElementById('successMsg').style.display = "none"
+  }, 3000);
+</script>

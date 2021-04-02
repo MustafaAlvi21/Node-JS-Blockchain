@@ -1,0 +1,182 @@
+<body id="page-top">
+    <div id="wrapper">
+
+        <%- include('./partials/sidebar.ejs') %>
+
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+
+                    <%- include('./partials/nav.ejs') %>
+
+                        <div class="container-fluid">
+                            <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                <h3 class="text-dark mb-0"> Block Verification </h3>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            
+                            <div class="row w-100">
+                                <div class="m-auto w-50">
+
+                                    <% if (typeof msg !='undefined' && msg==true) { %>
+                                        <div class="alert alert-success" id="successMsg" role="alert">
+                                            Block is Verified!!!
+                                        </div>
+                                    <% } %>
+                                    <% if (typeof msg !='undefined' && msg==false) { %>
+                                        <div class="alert alert-danger" id="successMsg" role="alert">
+                                            Block Not Verified!!!
+                                        </div>
+                                    <% } %>
+                                    <% if (typeof msg !='undefined' && msg!=false && msg!=true) { %>
+                                        <div class="alert alert-info" id="successMsg" role="alert">
+                                            <%= msg.msg %>
+                                        </div>
+                                    <% } %>
+
+                                    <form action="/verifyBlock" method="POST">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Enter height of block to verify</label>
+                                          <input type="number" class="form-control" id="exampleInputEmail1" name="height" aria-describedby="emailHelp" required placeholder="Enter amount to send">
+                                        </div>
+                                        <center>
+                                            <button type="submit" class="btn btn-primary px-4">Verify it</button>
+                                        </center>
+                                      </form>                      
+                                </div>
+                            </div>
+                            <div class="row">
+                                <% if( typeof block != "undefined" ) { %> 
+                                    <!-- <div class="col-md-6 col-xl-3 mb-4">
+                                        <div class="card shadow border-left-primary py-2">
+                                            <div class="card-body">
+                                                <div class="row align-items-center no-gutters">
+                                                    <div class="col mr-2">
+                                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Blcok Hash</span></div>
+                                                        <div class="text-dark font-weight-bold h5 mb-0"><span> <%= block.hash %> </span></div>
+                                                    </div>
+                                                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                <% } %>
+                                
+                                <% if( typeof block != "undefined" ) { %> 
+                                <!-- <div class="col-md-6 col-xl-3 mb-4">
+                                    <div class="card shadow border-left-success py-2">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Previous Hash</span></div>
+                                                    <div class="text-dark font-weight-bold h5 mb-0"><span><%= block.previousHash %></span></div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <% } %>
+
+                                <% if( typeof block != "undefined" ) { %> 
+                                <!-- <div class="col-md-4 col-xl-3 mb-4">
+                                    <div class="card shadow border-left-info py-2">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Height Of a Block</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+                                                            <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><%= block.height %></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <% } %>
+                                
+                                <% if( typeof block != "undefined" ) { %> 
+                                <!-- <div class="col-md-4 col-xl-3 mb-4">
+                                    <div class="card shadow border-left-warning py-2">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Timestamp</span></div>
+                                                    <div class="text-dark font-weight-bold h5 mb-0"><span><%= block.timestamp %></span></div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <% } %>
+                                
+                                <% if( typeof block != "undefined" ) { %> 
+                                <!-- <div class="col-md-4 col-xl-3 mb-4">
+                                    <div class="card shadow border-left-dark py-2">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-dark font-weight-bold text-xs mb-1"><span>Nonce</span></div>
+                                                    <div class="text-dark font-weight-bold h5 mb-0"><span><%= block.nonce %></span></div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <% } %>
+
+                            </div>
+                        </div>
+            
+                        
+                    <div class="container-fluid">
+                    
+                        <% if (typeof block != 'undefined') { %>
+                            <!-- <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 font-weight-bold">List of transactions Of Block</p>
+                                </div>
+                                <div class="card-body  mx-0">
+                                    <div class="table-responsive table mt-2 bg-white p-3" style="border-radius: 8px;" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                        <table class="table my-0  mx-0" id="dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Transaction Hash</th>
+                                                    <th>Amount</th>
+                                                    <th>Sender</th>
+                                                    <th>Receiver</th>
+                                                    <th>Timestamp</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                    
+                            </div> -->
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+</body>
+
+<script>
+    tds = document.querySelectorAll("td");
+    for (let i = 0; i < tds.length; i++) {
+        if (tds[i].innerText.length > 25 ){
+            text = tds[i].innerText.substring(0,20)
+            tds[i].innerText = text + "..."
+        }   
+    }
+</script>
